@@ -1,0 +1,14 @@
+thead {
+    /* background-color:red;  */
+    /* background-color:rgb(158, 213, 238); */
+    /* padding: 0; */
+    background-color: rgba(91, 92, 134, 0.24);
+}
+
+.dataTables_filter{
+    
+    background-color: rgba(91, 92, 134, 0.24);
+}
+.sht{
+    background-color: rgb(112, 196, 207);
+}
