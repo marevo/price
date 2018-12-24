@@ -12,23 +12,32 @@
     <link rel="stylesheet" href="/css/dataTable.css">
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="js/jsSortSearchTable.js"></script> 
-    <script type="text/javascript" src="js/jsForTable2.js"></script>
+    <!-- <script type="text/javascript" src="js/jsSortSearchTable.js"></script>  -->
+    <!-- <script type="text/javascript" src="js/jsForTable2.js"></script> -->
 
 
 </head>
 <body>
 <div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12 col-md-12">
+            <header><h1>прайс</h1></header>
+            <div class="form-group">
+                <input type="text" class="form-control " id="search" placeholder="Поиск по таблице">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control " id="persent" placeholder="% скидка">
+            </div>
+        </div>
+    </div>
     <div class="row class='text-left'">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <header>
-                <h1>прайс</h1>
-            </header>
-            <!-- <div class="table-responsive"> -->
+            
+            <div class="table-responsive">
                 <?php 
                 $row = 0;
                 $pathToFile = './uploadFiles/price_09_12_18.csv';
-                $table = "<table class = 'table table-striped table-hover'><thead><<>></thead>";
+                $table = "<table id='mytable' class = 'table table-striped table-hover'><thead><<>></thead>";
                 if (($handle = fopen($pathToFile, "r")) !== false) {
                     // while (($data = fgetcsv($handle)) !== FALSE) {
                     $thead = "";
@@ -40,9 +49,11 @@
                         // echo "<p> $num fields in line $row: <br /></p>\n";
                         $row++;
                         $c = 0;
+                        // if($row == 7)
+                            // break;
                         //3 первых строки это заголовок и название колонок 
                         //оформим из в тэги <thead></thead>
-                        if ($row < 4) {
+                        if ($row < 3) {
                             // $tr = "<thead><tr></tr></thead><tbody>";
                             for (; $c < $num; $c++) {
                                 $td_all .= "<td>" . $data[$c] . "</td>";
@@ -60,7 +71,8 @@
                                 // if($c == 0  && strripos($data[$c],'*')  &&   ( strpos($data[$c],'шт/') || strpos($data[$c],'ш/')  || strpos($data[$c],'шт'))  ){
                                 if ($c == 0 && strripos($name, '*') && (strpos($name, 'шт/') || strpos($name, 'шт') || strpos($name, 'ш/'))) {
                                     // string substr(string string, int start[, int length]);
-                                    $posZV = strripos($name, '*');
+                                    $posZV = strripos($name, '*');//позиция звездочки
+                                    //позиция 'шт'
                                     $posSHT = strripos($name, 'шт/') ? strripos($name, 'шт/') : strripos($name, 'шт') ? strripos($name, 'шт') : strripos($name, 'ш/');
                                     if ($posSHT > $posZV) {
                                         $countItemInPack = substr($name, $posZV + 1, $posSHT - $posZV - 1);
@@ -71,8 +83,14 @@
                                         }
                                     } else
                                         $td_all .= "<td>$data[$c]</td>";
-                                } else
-                                    $td_all .= "<td>$data[$c]</td>";
+                                } else{
+                                   if($c == 3){
+                                    $td_all .= "<td data-base_price ='$data[$c]'>$data[$c]</td>";
+                                   }
+                                   else
+                                       $td_all .= "<td>$data[$c]</td>";
+                                }
+                                   // $td_all .= "<td>$data[$c]</td>";
                                 // echo $data[$c] . "<br />\n";
                             }
                             $tr .= "<tr><td>$row</td>$td_all</tr>";
@@ -85,10 +103,11 @@
                     echo "$table";
                 }
                 ?>
-            <!-- </div> -->
+            </div>
         </div>
     </div>
+<!-- container end -->    
 </div>
-
+<script type="text/javascript" src="js/index.js"></script>
 </body>
 </html>

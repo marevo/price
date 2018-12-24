@@ -12,3 +12,16 @@ thead {
 .sht{
     background-color: rgb(112, 196, 207);
 }
+.text_red , .highlight {
+    color: #F00;
+  }
+  .delete_persent{
+      background-color: blueviolet;
+  }
+
+  .table-responsive{
+     max-height: 80vh;
+  }
+ .discount_price{
+    background-color: rgba(105, 148, 61, 0.514);
+}
