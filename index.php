@@ -33,8 +33,8 @@ use App\Model\Text_csv_file;
         <div class="row" id="columns">
             <!-- <div > -->
             <div class="col-lg-3 col-md-3 col-sm-3  col-xs-3 ">
-                    <input type="text" class="form-control" id="search" placeholder="Поиск товара">
-                    <input type="text" class="form-control" id="persent" placeholder="% скидка">
+                    <!-- <input type="text" class="form-control" id="search" placeholder="Поиск товара"> -->
+                    <!-- <input type="text" class="form-control" id="persent" placeholder="% скидка"> -->
                     <input type="text" 
                                        v-model="search_name_product"
                                        v-on:change = "searching_products_on_name"
@@ -47,10 +47,9 @@ use App\Model\Text_csv_file;
                                        v-bind:class ="{lightingRed:isNumber}" 
                      class="form-control"  placeholder="srch_weight">
                      <input type='number' min='0' max='20'class='form-control' placeholder='%disc' name='discount'
-                                        v-bind:size="4"
+                                        v-bind:size="3"
                                         v-model="disc_persent"
-                                        >
-                                        <div v-on:input="disc_persent = form.discount.value" > no_click</div>
+                                        ><label for='discount'>скидка {{disc_persent}} </label>
              </div>
             <!--<div class="col-lg-9 col-md-9 col-sm-9  col-xs-9 checkbox_group">
                     <input type="checkbox" name='brand' id='lisovaKazka' value='lisovaKazka' class='checkbox'><label class="toggle-container" for="lisovaKazka">лк</label>
