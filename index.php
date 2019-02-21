@@ -14,42 +14,52 @@ use App\Model\Text_csv_file;
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- <meta charset="UTF-8"> -->
     <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
-    <title>Document</title>
+    <title>price_vue.js</title>
     <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/main.css">
-    <link rel="stylesheet" href="/css/dataTable.css">
+    
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <script src = js/vue.js></script>
     <script type="text/javascript" src="js/sizeof.compressed.js"></script>
+
+    
+    <!-- production-версия, оптимизированная для размера и скорости-->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue"></script> -->
+    
     <!-- <script type="text/javascript" src="js/jsSortSearchTable.js"></script>  -->
     <!-- <script type="text/javascript" src="js/jsForTable2.js"></script> -->
+    <!-- <link rel="stylesheet" href="/css/dataTable.css"> -->
 </head>
 <body>
 <div id="container_main" class="container-fluid" >
     <header><h5>прайс</h5></header>
     <form role='form' class= 'form-inline'>
-        <div class="row" id="columns">
+        <div class="row" >
             <!-- <div > -->
-            <div class="col-lg-3 col-md-3 col-sm-3  col-xs-3 ">
+            <div class="col-lg-4 col-md-4 col-sm-4  col-xs-4 ">
                     <!-- <input type="text" class="form-control" id="search" placeholder="Поиск товара"> -->
                     <!-- <input type="text" class="form-control" id="persent" placeholder="% скидка"> -->
-                    <input type="text" 
+                    <label for='name_product'>название</label>
+                    <input type="text" name='name_product' size="7"
                                        v-model="search_name_product"
                                        v-on:change = "searching_products_on_name"
-                                       v-bind:size="10"
                      class="form-control"  placeholder="srch_name">
-                     <input type='number'min='0.2' max='1.3' step='0.1'
+            </div>
+            <div class="col-lg-4 col-md-3 col-sm-4  col-xs-4 ">        
+                 <label for='weight'>вес</label>
+                 <input type='number'min='0.2' max='1.3' step='0.1' name="weight" size="4"
                                        v-model="search_weight_product"
                                        v-on:change = "searching_products_on_weight"
-                                       v-bind:size="4"
                                        v-bind:class ="{lightingRed:isNumber}" 
                      class="form-control"  placeholder="srch_weight">
-                     <input type='number' min='0' max='20'class='form-control' placeholder='%disc' name='discount'
-                                        v-bind:size="3"
+           </div>
+           <div class="col-lg-4 col-md-4 col-sm-4  col-xs-4 ">
+                    <label for='discount'>скидка {{disc_persent}} </label>
+                     <input type='number' min='0' max='20'class='form-control' placeholder='%disc' name='discount' size="4"
                                         v-model="disc_persent"
-                                        ><label for='discount'>скидка {{disc_persent}} </label>
+                                        >
              </div>
             <!--<div class="col-lg-9 col-md-9 col-sm-9  col-xs-9 checkbox_group">
                     <input type="checkbox" name='brand' id='lisovaKazka' value='lisovaKazka' class='checkbox'><label class="toggle-container" for="lisovaKazka">лк</label>
@@ -69,7 +79,7 @@ use App\Model\Text_csv_file;
     <button class="btn btn-success" v-once v-on:click="create_all_products">товары в js-obj</button>
     <button class="btn btn-success" v-on:click="searching_products_on_name">найти товар </button>
     <div> all:{{products_length}} ~ {{size_all_obj}} find:products_search_lenght}} ~ {{"sizeObj_finding"}}</div>
-    <div class="row">
+    <div class="row" id="columns">
         <div class="col-md-2">
         <input type="checkbox" name='brandSel' id='lk' value='lisovaKazka' class='checkbox'
                      v-model="selected_brands"
