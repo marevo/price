@@ -34,7 +34,7 @@ use App\Model\Text_csv_file;
 </head>
 <body>
 <div id="container_main" class="container-fluid" >
-    <header><h5>прайс</h5></header>
+    <header><h5>прайс <a href='/upload_file.php' target='_blank'>загрузить новый прайс</a></h5></header>
     <form role='form' class= 'form-inline'>
         <div class="row" >
             <!-- <div > -->
@@ -170,6 +170,6 @@ use App\Model\Text_csv_file;
     </div>
 <!-- container end -->    
 </div>
-<script type="text/javascript" src="js/index.js"></script>
+<!-- <script type="text/javascript" src="js/index.js"></script> -->
 </body>
 </html>
