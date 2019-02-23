@@ -23,14 +23,9 @@ use App\Model\Text_csv_file;
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <script src = js/vue.js></script>
     <script type="text/javascript" src="js/sizeof.compressed.js"></script>
-
     
     <!-- production-версия, оптимизированная для размера и скорости-->
     <!-- <script src="https://cdn.jsdelivr.net/npm/vue"></script> -->
-    
-    <!-- <script type="text/javascript" src="js/jsSortSearchTable.js"></script>  -->
-    <!-- <script type="text/javascript" src="js/jsForTable2.js"></script> -->
-    <!-- <link rel="stylesheet" href="/css/dataTable.css"> -->
 </head>
 <body>
 <div id="container_main" class="container-fluid" >
@@ -149,8 +144,8 @@ use App\Model\Text_csv_file;
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="table-responsive">
                         <?php 
-                        $nameFile = 'price_13_02_19.csv';
-                        if(is_file("uploadFiles/$nameFile")){
+                        $nameFile = 'price.csv';
+                        if(is_file(__DIR__."/uploadFiles/$nameFile")){
                             $textFilePriseCsv = new Text_csv_file($nameFile);
                             if( $tableTovarAll = $textFilePriseCsv->createTableTovarFrom_csv_file('mytable')){
                                 echo "$tableTovarAll";
@@ -170,6 +165,6 @@ use App\Model\Text_csv_file;
     </div>
 <!-- container end -->    
 </div>
-<!-- <script type="text/javascript" src="js/index.js"></script> -->
+
 </body>
 </html>

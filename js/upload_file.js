@@ -6,8 +6,13 @@ let upload_file = new Vue({
         {name:"price", date:"20.02.18"},
         {name:"price", date:"16.02.18"},
         {name:"price", date:"10.02.18"},
-        {name:"price", date:"04.02.18"}
+        {name:"price", date:"04.02.18"},
     ],//загруженные файлы прайсов
+    
+    files_price_from_server : files_price_from_server,
+       
+    
+
 
   }
 });
