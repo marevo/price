@@ -21,38 +21,40 @@ use App\Model\Text_csv_file;
     
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
-    <script src = js/vue.js></script>
+    <!-- <script src = js/vue.js></script> -->
     <script type="text/javascript" src="js/sizeof.compressed.js"></script>
     
     <!-- production-версия, оптимизированная для размера и скорости-->
-    <!-- <script src="https://cdn.jsdelivr.net/npm/vue"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
 </head>
 <body>
 <div id="container_main" class="container-fluid" >
-    <header><h5>прайс <a href='/upload_file.php' target='_blank'>загрузить новый прайс</a></h5></header>
-    <form role='form' class= 'form-inline'>
+    <!-- <a href='./upload_file.php' target='_blank' class="btn btn-default" >выбрать прайс</a> -->
         <div class="row" >
+           <form role='form' class= 'form-inline'>
             <!-- <div > -->
-            <div class="col-lg-4 col-md-4 col-sm-4  col-xs-4 ">
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><a href='./upload_file.php' target='_blank' class="btn btn-sm btn-success" >выбрать прайс</a> 
+            </div>    
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
                     <!-- <input type="text" class="form-control" id="search" placeholder="Поиск товара"> -->
                     <!-- <input type="text" class="form-control" id="persent" placeholder="% скидка"> -->
-                    <label for='name_product'>название</label>
+                    <!-- <label for='name_product'>название</label> -->
                     <input type="text" name='name_product' size="7"
                                        v-model="search_name_product"
                                        v-on:change = "searching_products_on_name"
-                     class="form-control"  placeholder="srch_name">
+                     class="form-control"  placeholder="название">
             </div>
-            <div class="col-lg-4 col-md-3 col-sm-4  col-xs-4 ">        
-                 <label for='weight'>вес</label>
-                 <input type='number'min='0.2' max='1.3' step='0.1' name="weight" size="4"
+            <div class="col-lg-3 col-md-3 col-sm-3  col-xs-3">        
+                 <!-- <label for='weight'>вес</label> -->
+                 <input type='number'min='0.2' max='1.3' step='0.1' name="weight" size="3"
                                        v-model="search_weight_product"
                                        v-on:change = "searching_products_on_weight"
                                        v-bind:class ="{lightingRed:isNumber}" 
-                     class="form-control"  placeholder="srch_weight">
+                     class="form-control"  placeholder="вес">
            </div>
-           <div class="col-lg-4 col-md-4 col-sm-4  col-xs-4 ">
-                    <label for='discount'>скидка {{disc_persent}} </label>
-                     <input type='number' min='0' max='20'class='form-control' placeholder='%disc' name='discount' size="4"
+           <div class="col-lg-3 col-md-3 col-sm-3  col-xs-3">
+                    <!-- <label for='discount'>скидка {{disc_persent}} </label> -->
+                     <input type='number' min='0' max='20'class='form-control' placeholder="скидка" name='discount' size="3"
                                         v-model="disc_persent"
                                         >
              </div>
@@ -69,19 +71,19 @@ use App\Model\Text_csv_file;
                     <input type="checkbox" name='brand' id='zahid' value='zahid' class='checkbox'><label class="toggle-container" for="zahid">захид</label>
             </div> -->
             <!-- </div> -->
+            </form>
         </div> 
-    </form>
     <button class="btn btn-success" v-once v-on:click="create_all_products">товары в js-obj</button>
     <button class="btn btn-success" v-on:click="searching_products_on_name">найти товар </button>
     <div> all:{{products_length}} ~ {{size_all_obj}} find:products_search_lenght}} ~ {{"sizeObj_finding"}}</div>
     <div class="row" id="columns">
+        <!--
         <div class="col-md-2">
         <input type="checkbox" name='brandSel' id='lk' value='lisovaKazka' class='checkbox'
-                     v-model="selected_brands"
-                    
-                              ><label class='toggle-container' for='lk'>ЛК</label>
+                     v-model="selected_brands"><label class='toggle-container' for='lk'>ЛК</label>
         <span>selected:{{selected_brands}}</span>
         </div>
+        -->
         <div class="col-md-10">
             <template v-for="brand in brands">
                <input type='checkbox' class='checkbox' 
@@ -95,13 +97,13 @@ use App\Model\Text_csv_file;
             
         </div>
     </div>
-    <div  class="row class='text-left'">
+    <div  class="row text-left">
         <div  class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <!-- <div class="table-responsive"> -->
                     <table v-show="products_search_lenght" class="table">
-                        <thead><tr><td>найдено:{{products_search_lenght}}
+                        <thead><tr><th>найдено:{{products_search_lenght}}
                         <button v-on:click="orderByName" class='btn btn-small btn-default'>
                                             <span v-if="sortNameDown" class='glyphicon glyphicon-sort-by-attributes'></span>
                                             <span v-else class='glyphicon glyphicon-sort-by-attributes-alt'></span>
@@ -114,9 +116,7 @@ use App\Model\Text_csv_file;
                                 v-model="search_in_table_search" 
                                 :size=4
                                 v-on:change="show_in_table"
-                        >                     
-                                        </td>
-                                    <td>расф.</td><td>ед. изм.</td><td>цена ед.</td><td>цена уп.</td><td>ост. ед.</td><td>ост. ящ</td></tr></thead>
+                        ></th><th>расф.<th><th>ед. изм.</th><th>цена ед.</th><th>цена уп.</th><th>ост. ед.</th><th>ост. ящ</th></tr></thead>
                         <tbody>
                             <tr
                                 v-for="prod in products_search"
@@ -131,12 +131,14 @@ use App\Model\Text_csv_file;
                         </tbody>
                     </table>
                     <!-- </div> -->
+                    <!--
                     <ul class="list-group">
                         <li class="list-group-tem"
                             v-for="prod in products_search">
                             {{prod.name}} brand-{{prod.id_brand}}  расфасовка:{{prod.pack_weight}} {{prod.pack_weight_name}} цена {{prod.price_for_one | discount(disc_persent) }}
                         </li>
-                    </ul>   
+                    </ul>
+                    -->   
                 </div>
             </div> 
             <!-- создание таблицы при считывании из файла -->  
@@ -145,7 +147,7 @@ use App\Model\Text_csv_file;
                     <div class="table-responsive">
                         <?php 
                         $nameFile = 'price.csv';
-                        if(is_file(__DIR__."/uploadFiles/$nameFile")){
+                        if(is_file(__DIR__."/uploadFile/$nameFile")){
                             $textFilePriseCsv = new Text_csv_file($nameFile);
                             if( $tableTovarAll = $textFilePriseCsv->createTableTovarFrom_csv_file('mytable')){
                                 echo "$tableTovarAll";

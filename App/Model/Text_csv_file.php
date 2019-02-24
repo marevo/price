@@ -21,8 +21,8 @@ class Text_csv_file
         if($_nameFile){
             $this->nameFile = $_nameFile;
             try{
-                if(is_file("uploadFiles/$this->nameFile"))
-                    $this->pathToFile = "uploadFiles/$this->nameFile";
+                if(is_file("uploadFile/$this->nameFile"))
+                    $this->pathToFile = "uploadFile/$this->nameFile";
             }catch(Exception $exception){
                     $this->error_message .= $exception . " $this->nameFile";
                      echo $exception->getMessage()." $error_mes_noFile ";
