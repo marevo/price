@@ -21,60 +21,58 @@ use App\Model\Text_csv_file;
     
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
-    <!-- <script src = js/vue.js></script> -->
+    <script src = js/vue.js></script>
     <script type="text/javascript" src="js/sizeof.compressed.js"></script>
     
     <!-- production-версия, оптимизированная для размера и скорости-->
-    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue"></script> -->
 </head>
 <body>
 <div id="container_main" class="container-fluid" >
-    <!-- <a href='./upload_file.php' target='_blank' class="btn btn-default" >выбрать прайс</a> -->
         <div class="row" >
-           <form role='form' class= 'form-inline'>
             <!-- <div > -->
-            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><a href='./upload_file.php' target='_blank' class="btn btn-sm btn-success" >выбрать прайс</a> 
-            </div>    
-            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                    <!-- <input type="text" class="form-control" id="search" placeholder="Поиск товара"> -->
-                    <!-- <input type="text" class="form-control" id="persent" placeholder="% скидка"> -->
-                    <!-- <label for='name_product'>название</label> -->
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <!-- <form role='form' class= 'form-inline'> -->
+                <div class="input-group">
+                    <span class="input-group-btn">
+                       <a href='./upload_file.php' target='_blank' class="btn btn-success" type="button">выбрать прайс</a>
+                    </span>    
                     <input type="text" name='name_product' size="7"
                                        v-model="search_name_product"
-                                       v-on:change = "searching_products_on_name"
+                                       v-on:input = "searching_products_on_name"
                      class="form-control"  placeholder="название">
-            </div>
-            <div class="col-lg-3 col-md-3 col-sm-3  col-xs-3">        
-                 <!-- <label for='weight'>вес</label> -->
-                 <input type='number'min='0.2' max='1.3' step='0.1' name="weight" size="3"
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button"
+                             @click="search_name_product=''"
+                        ><span class="glyphicon glyphicon-remove"></span>
+                       </button>
+                    </span>
+                    <input type='number'min='0.2' max='1.3' step='0.1' name="weight" size="3"
                                        v-model="search_weight_product"
                                        v-on:change = "searching_products_on_weight"
                                        v-bind:class ="{lightingRed:isNumber}" 
                      class="form-control"  placeholder="вес">
-           </div>
-           <div class="col-lg-3 col-md-3 col-sm-3  col-xs-3">
-                    <!-- <label for='discount'>скидка {{disc_persent}} </label> -->
-                     <input type='number' min='0' max='20'class='form-control' placeholder="скидка" name='discount' size="3"
-                                        v-model="disc_persent"
-                                        >
-             </div>
-            <!--<div class="col-lg-9 col-md-9 col-sm-9  col-xs-9 checkbox_group">
-                    <input type="checkbox" name='brand' id='lisovaKazka' value='lisovaKazka' class='checkbox'><label class="toggle-container" for="lisovaKazka">лк</label>
-                    <input type="checkbox" name='brand' id='zhorik_obzhorik' value='zhorik_obzhorik' class='checkbox'><label class="toggle-container" for="zhorik_obzhorik">жорик</label>
-                    <input type="checkbox" name='brand' id='sweet_company' value='sweet_company' class='checkbox'><label class="toggle-container" for="sweet_company">свит компани</label>
-                    <input type="checkbox" name='brand' id='shokoladno' value='shokoladno' class='checkbox'><label class="toggle-container" for="shokoladno">шоколадно</label>
-                    <input type="checkbox" name='brand' id='stimul' value='stimul' class='checkbox'><label class="toggle-container" for="stimul">стимул</label>
-                    <input type="checkbox" name='brand' id='vavryk' value='vavryk' class='checkbox'><label class="toggle-container" for="vavryk">ваврик</label>
-                    <input type="checkbox" name='brand' id='sergis' value='sergis' class='checkbox'><label class="toggle-container" for="sergis">сергис</label>
-                    <input type="checkbox" name='brand' id='luskunchik' value='luskunchik' class='checkbox'><label class="toggle-container" for="luskunchik">лускунчик</label>
-                    <input type="checkbox" name='brand' id='faraon' value='faraon' class='checkbox'><label class="toggle-container" for="faraon">фараон</label>
-                    <input type="checkbox" name='brand' id='zahid' value='zahid' class='checkbox'><label class="toggle-container" for="zahid">захид</label>
-            </div> -->
-            <!-- </div> -->
-            </form>
-        </div> 
-    <button class="btn btn-success" v-once v-on:click="create_all_products">товары в js-obj</button>
-    <button class="btn btn-success" v-on:click="searching_products_on_name">найти товар </button>
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button"
+                        @click="search_weight_product=''"  
+                        >
+                            <span class="glyphicon glyphicon-remove"></span></button>
+                    </span>
+                    <input type='number' min='0' max='20'class='form-control' placeholder="скидка" name='discount' size="3"
+                                        v-model="disc_persent">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button"
+                            @click="disc_persent=''"
+                        >
+                        <span class="glyphicon glyphicon-remove"></span></button>
+                    </span>
+                </div>
+                <!-- </form> -->
+            </div><!-- end col-12 -->    
+    
+            <button class="btn btn-success" v-on:click.stop.prevent.once="create_all_products">товары в js-obj</button>
+            <button class="btn btn-success" v-on:click.stop.prevent="searching_products_on_name">найти товар </button>
+        </div><!--end row -->       
     <div> all:{{products_length}} ~ {{size_all_obj}} find:products_search_lenght}} ~ {{"sizeObj_finding"}}</div>
     <div class="row" id="columns">
         <!--
@@ -103,32 +101,51 @@ use App\Model\Text_csv_file;
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <!-- <div class="table-responsive"> -->
                     <table v-show="products_search_lenght" class="table">
-                        <thead><tr><th>найдено:{{products_search_lenght}}
-                        <button v-on:click="orderByName" class='btn btn-small btn-default'>
-                                            <span v-if="sortNameDown" class='glyphicon glyphicon-sort-by-attributes'></span>
-                                            <span v-else class='glyphicon glyphicon-sort-by-attributes-alt'></span>
-                                             Sort name</button>
-                        <button v-on:click="orderByWeight" class='btn btn-small btn-default'>
-                                            <span v-if="sortWeightDown" class='glyphicon glyphicon-triangle-top'></span>
-                                            <span v-else class='glyphicon glyphicon-triangle-bottom'></span>
-                                             Sort weight</button>
-                        <input type='text'
-                                v-model="search_in_table_search" 
-                                :size=4
-                                v-on:change="show_in_table"
-                        ></th><th>расф.<th><th>ед. изм.</th><th>цена ед.</th><th>цена уп.</th><th>ост. ед.</th><th>ост. ящ</th></tr></thead>
-                        <tbody>
-                            <tr
-                                v-for="prod in products_search"
-                                v-show="show_tr(prod.name)"
-                                >
-                                <td>{{prod.name}}</td><td>{{prod.pack_weight}}</td><td>{{prod.pack_weight_name}}</td>
-                                <td>{{prod.price_for_one | discount(disc_persent) }}</td>
-                                <td>{{prod.price_for_unit | discount(disc_persent)}}</td>
-                                <td>{{prod.stock_balance_in_unit}}</td>
-                                <td>{{prod.stock_balance_in_packaging}}</td>
-                            </tr>
-                        </tbody>
+                        <thead><tr>
+                            <th>
+                                <!-- <div class="row"> -->
+                                    <!-- <div class="col-lg-12"> -->
+                                        <div class="input-group">
+                                            <input type="text" class='form-control' 
+                                                 v-bind:value="products_search_lenght" 
+                                                 v-bind:style="styleObject"
+                                            >
+                                            <span class="input-group-btn">
+                                                <button v-on:click="orderByName" class='btn btn-primary'>
+                                                    <span v-if="sortNameDown" class='glyphicon glyphicon-sort-by-attributes'></span>
+                                                    <span v-else class='glyphicon glyphicon-sort-by-attributes-alt'></span>
+                                                    Sort name
+                                                </button>
+                                            </span>
+                                            <span class="input-group-btn">
+                                                <button v-on:click="orderByWeight" class='btn btn-primary'>
+                                                    <span v-if="sortWeightDown" class='glyphicon glyphicon-triangle-top'></span>
+                                                    <span v-else class='glyphicon glyphicon-triangle-bottom'></span>
+                                                    Sort weight
+                                                </button>
+                                            </span>
+                                            <!-- <span class="input-group-btn"> -->
+                                            <input type='text' class='form-control' placeholder='name search'
+                                                v-model="search_in_table_search" 
+                                                v-on:change="show_in_table"
+                                            >
+                                            <!-- </span> -->
+                                        </div><!-- /input-group  -->
+                                    <!-- </div> -->
+                                <!-- </div> -->
+                            </th><th>расф.</th><th>ед. изм.</th><th>цена ед.</th><th>цена уп.</th><th>ост. ед.</th><th>ост. ящ</th></tr></thead>
+                            <tbody>
+                                <tr
+                                    v-for="prod in products_search"
+                                    v-show="show_tr(prod.name)"
+                                    >
+                                    <td>{{prod.name}}</td><td>{{prod.pack_weight}}</td><td>{{prod.pack_weight_name}}</td>
+                                    <td>{{prod.price_for_one | discount(disc_persent) }}</td>
+                                    <td>{{prod.price_for_unit | discount(disc_persent)}}</td>
+                                    <td>{{prod.stock_balance_in_unit}}</td>
+                                    <td>{{prod.stock_balance_in_packaging}}</td>
+                                </tr>
+                            </tbody>
                     </table>
                     <!-- </div> -->
                     <!--

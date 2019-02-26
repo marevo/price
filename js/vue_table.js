@@ -16,6 +16,12 @@ let table_vue = new Vue({
         search_in_table:'',
         search_in_table_search:'',
 
+        styleObject:{
+            color:'#fff',
+            backgroundColor:'#5f8eb6',
+            width:'40px',
+        },
+
         //brands что будут отображаться на странице index.php
         brands:[
             {id:'sweet_company',name:'Світ'},
@@ -149,6 +155,9 @@ let table_vue = new Vue({
         show_in_table(){
 
         },
+        clear_name_product(){
+            // this.search_name_product = "";
+        }
     },
     computed:{
         
