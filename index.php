@@ -34,6 +34,8 @@ use App\Model\Text_csv_file;
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <!-- <form role='form' class= 'form-inline'> -->
                 <div class="input-group">
+                    <input type="text" v-model="date_price_value" size="10" placeholder="date_price"  class="form-control"
+                    >
                     <span class="input-group-btn">
                        <a href='./upload_file.php' target='_blank' class="btn btn-success" type="button">выбрать прайс</a>
                     </span>    
@@ -165,8 +167,10 @@ use App\Model\Text_csv_file;
                         <?php 
                         $nameFile = 'price.csv';
                         if(is_file(__DIR__."/uploadFile/$nameFile")){
-                            $textFilePriseCsv = new Text_csv_file($nameFile);
-                            if( $tableTovarAll = $textFilePriseCsv->createTableTovarFrom_csv_file('mytable')){
+                            $textFilePriceCsv = new Text_csv_file($nameFile);
+                            $date_price = $textFilePriceCsv->get_date_price();
+                            echo"<script type='text/javascript'> var date_price = '$date_price'</script>";
+                            if( $tableTovarAll = $textFilePriceCsv->createTableTovarFrom_csv_file('mytable')){
                                 echo "$tableTovarAll";
                                 echo "<script type = 'text/javascript' src='js/vue_table.js'></script>";
                             }

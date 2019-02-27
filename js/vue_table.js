@@ -15,7 +15,7 @@ let table_vue = new Vue({
         disc_persent:0,
         search_in_table:'',
         search_in_table_search:'',
-
+        date_price:date_price,
         styleObject:{
             color:'#fff',
             backgroundColor:'#5f8eb6',
@@ -160,7 +160,9 @@ let table_vue = new Vue({
         }
     },
     computed:{
-        
+        date_price_value(){
+            return 'прайс от'+ this.date_price;
+        },
         sum(){
             console.log('1');
             let sum=0;

@@ -37,7 +37,32 @@ class Text_csv_file
            return $this->handle;
         return null;   
     }
-    
+
+    /**
+     *@returt string like "10.02.19" 
+     */
+    public function get_date_price():string{
+        //sting of file.csv
+        $row = 0;
+        if($this->get_handle_cvs_file()){
+            while(($data = fgetcsv($this->handle, 1000, ';')) !==false && $row < 2){
+                $data = self::encodWinToUtf8($data);
+                //$num количество подстрок в строке разделенной ";" в файле csv
+                $num = count($data);
+                $td_0 = $data[0];//fisrst substring in string
+                if($row == 0){
+                   //смотрим первую строку файла (вид  "Прайс на дату: 10.02.19;;;;;;")
+                   //найдем строку даты после ":"
+                   if($pos_begin = strpos($td_0,":")){
+                       fclose($this->handle);
+                       return substr($td_0,$pos_begin);
+                   }
+                }
+                fclose($this->handle);
+            }
+        }
+        return " !no_date";
+    }
 
     /** 
      * @return string 
@@ -127,7 +152,9 @@ class Text_csv_file
         $errorMessage ="какая-то ошибка при формировании таблицы"; 
         return "<table id='$idTable' class = 'table table-striped table-hover'><thead></thead><tbody><tr><td>$errorMessage</td></tr></tbody></table>";
     }
-
+    /**
+     * @return array from string like " date : 22.11.2018; ; ; ; ; ;"
+     */
     public static function encodWinToUtf8(array $strWin):array{
         $arrayToreturn = [];
         $arrCount = count($strWin);
