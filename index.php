@@ -131,6 +131,12 @@ use App\Model\Text_csv_file;
                                                 v-model="search_in_table_search" 
                                                 v-on:change="show_in_table"
                                             >
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default" type="button"
+                                                        @click="search_in_table_search=''"
+                                                    ><span class="glyphicon glyphicon-remove"></span>
+                                                </button>
+                                            </span>
                                             <!-- </span> -->
                                         </div><!-- /input-group  -->
                                     <!-- </div> -->
