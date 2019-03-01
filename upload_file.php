@@ -1,4 +1,6 @@
 <?php 
+    // phpinfo();
+
 use App\Model\Text_csv_file;
 
 require_once "App/Model/Text_csv_file.php";
@@ -7,7 +9,10 @@ require_once "App/Model/Text_csv_file.php";
 //выбор файла из списка на сервере для отображения прайса
 if(isset($_POST['name'],$_POST['name_file'])){
     $name_file = htmlspecialchars($_POST['name_file']);
-    if( copy ( "./uploadFilesOld/$name_file" , "./uploadFile/price.csv" )){
+    $real_path_old = realpath($_SERVER['DOCUMENT_ROOT']."/uploadFilesOld"."/".$name_file);
+    $real_path_new = realpath($_SERVER['DOCUMENT_ROOT']."/uploadFile/price.csv");
+    $filename = $real_path_old;
+    if( copy ( $real_path_old , $real_path_new )){
         echo("choice_is_made");
         // header('Location:.index.php');
         exit;
@@ -37,7 +42,7 @@ if(is_dir($_SERVER['DOCUMENT_ROOT']."/uploadFilesOld")){
     unset($all_files[0],$all_files[1]);
     $files_for_js = '';
     foreach ($all_files as $file){
-        $files_for_js .= "{name:\"$file \" , date:\"$file date \"},";
+        $files_for_js .= "{name:\"$file\" , date:\"$file date\"},";
     }
     $files_for_js ="[".$files_for_js."]";
     echo "<script type='text/javascript'>var files_price_from_server = $files_for_js</script>" ;

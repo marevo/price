@@ -20,7 +20,7 @@ let upload_file = new Vue({
             type:"POST",
             url: "upload_file.php",
             // dataType: "multipart/form-data",
-            data: {name:'','name_file':data_elem},
+            data: {'name':'','name_file':data_elem},
             success: function(response, status, xhr) {
                 if(status =="success" && xhr.responseText == "choice_is_made"){
                     $('.this_li').removeClass('this_li');
