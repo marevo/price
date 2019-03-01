@@ -20,13 +20,13 @@ if(isset($_POST['name'],$_POST['name_file'])){
  */
 if(isset($_FILES['upload_price']) && $_FILES['upload_price']['tmp_name']){
     //место куда будет перемещен файл из загруженного на сервер
-    $uploaded_file = $_SERVER['DOCUMENT_ROOT'].'/uploadFilesOld/'.basename($_FILES['upload_price']['name']);
+    $uploaded_file_tmp_path = $_FILES['upload_price']['tmp_name'];
     //получим дату прайса из файла
-    $date_price =   Text_csv_file::get_date_cvs_price($uploaded_file);
-    $new_path_uploading_file = $_SERVER['DOCUMENT_ROOT'].'/uploadFilesOld/'."price_$date_price.csv";
+    $date_price =   Text_csv_file::get_date_cvs_price($uploaded_file_tmp_path);
+    $new_path_uploading_file = $_SERVER['DOCUMENT_ROOT'].'/uploadFilesOld/'."price_"."$date_price.csv";
     if(move_uploaded_file($_FILES['upload_price']['tmp_name'],$new_path_uploading_file)){
-        echo("успешно загрузили  $uploaded_file <br> по пути $new_path_uploading_file <br>");
-        unset($_FILES['upload_price']);
+        echo("успешно загрузили  $uploaded_file_tmp_path <br> по пути $new_path_uploading_file <br>");
+        unset($_FILES['upload_price']['tmp_name']);
     }
     else echo("не удалось загрузить файл");
 }
