@@ -1,4 +1,10 @@
 <?php 
+use App\Model\Text_csv_file;
+
+require_once "App/Model/Text_csv_file.php";
+require_once "App/Model/Text_csv_file.php";
+
+//выбор файла из списка на сервере для отображения прайса
 if(isset($_POST['name'],$_POST['name_file'])){
     $name_file = htmlspecialchars($_POST['name_file']);
     if( copy ( "./uploadFilesOld/$name_file" , "./uploadFile/price.csv" )){
@@ -8,19 +14,26 @@ if(isset($_POST['name'],$_POST['name_file'])){
     }else echo"not_choice_file";
     exit;
 }
+
+/**
+ * upload file on server into path = upladFilesOdld/name
+ */
 if(isset($_FILES['upload_price']) && $_FILES['upload_price']['tmp_name']){
-    $uploaded_file = __DIR__.'/uploadFilesOld/'.basename($_FILES['upload_price']['name']);
-    if(move_uploaded_file($_FILES['upload_price']['tmp_name'],$uploaded_file)){
-        echo("успешно загрузили ".$uploaded_file);
+    //место куда будет перемещен файл из загруженного на сервер
+    $uploaded_file = $_SERVER['DOCUMENT_ROOT'].'/uploadFilesOld/'.basename($_FILES['upload_price']['name']);
+    //получим дату прайса из файла
+    $date_price =   Text_csv_file::get_date_cvs_price($uploaded_file);
+    $new_path_uploading_file = $_SERVER['DOCUMENT_ROOT'].'/uploadFilesOld/'."price_$date_price.csv";
+    if(move_uploaded_file($_FILES['upload_price']['tmp_name'],$new_path_uploading_file)){
+        echo("успешно загрузили  $uploaded_file <br> по пути $new_path_uploading_file <br>");
         unset($_FILES['upload_price']);
     }
     else echo("не удалось загрузить файл");
 }
-//выдача на клиент объектов с названиями файлов в папке ./uploadFilesOld
-$uploaded_file = '/uploadFiles/price.csv';
-if(is_dir(__DIR__."/uploadFilesOld")){
-    // echo "есть такая пака ".__DIR__."/uploadFilesOld";
-    $all_files = scandir(__DIR__."/uploadFilesOld");
+
+if(is_dir($_SERVER['DOCUMENT_ROOT']."/uploadFilesOld")){
+    // echo "есть такая пака ".$_SERVER['DOCUMENT_ROOT']."/uploadFilesOld";
+    $all_files = scandir($_SERVER['DOCUMENT_ROOT']."/uploadFilesOld");
     unset($all_files[0],$all_files[1]);
     $files_for_js = '';
     foreach ($all_files as $file){
@@ -28,7 +41,7 @@ if(is_dir(__DIR__."/uploadFilesOld")){
     }
     $files_for_js ="[".$files_for_js."]";
     echo "<script type='text/javascript'>var files_price_from_server = $files_for_js</script>" ;
-}else echo("нет такой папки ".__DIR__."/uploadFilesOld");
+}else echo("нет такой папки ".$_SERVER['DOCUMENT_ROOT']."/uploadFilesOld");
 
 ?>
 <!DOCTYPE html>

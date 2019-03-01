@@ -7,7 +7,7 @@ class Text_csv_file
 {
     public $pathToFile;
     private $handle;//resurs on file type csv
-    private $nameFile;//name file type csv in uploadFiles
+    private $nameFile;//name file type csv in uploadFile - funll path on server
     private $error_message_notfile;
     private $error_message;
     private static $error_mes_noFile = "нет такого файла в uploadFiles";
@@ -39,14 +39,14 @@ class Text_csv_file
     }
 
     /**
-     *@returt string like "10.02.19" 
+     *@return string like "10.02.19" 
      */
     public function get_date_price():string{
         //sting of file.csv
         $row = 0;
         if($this->get_handle_cvs_file()){
             while(($data = fgetcsv($this->handle, 1000, ';')) !==false && $row < 2){
-                $data = self::encodWinToUtf8($data);
+                $data = self::encodWinToUtf8($data);//массив из строки
                 //$num количество подстрок в строке разделенной ";" в файле csv
                 $num = count($data);
                 $td_0 = $data[0];//fisrst substring in string
@@ -62,6 +62,35 @@ class Text_csv_file
             }
         }
         return " !no_date";
+    }
+    
+    /**
+     * get date of price from file.csv
+     * @param string $full_path_file_csv   fullpath to file
+     * @return string like "10.02.19" in success or '!no_date' in nosuccess
+     */
+    public static function get_date_cvs_price(string $full_path_file_csv):string{
+        $row = 0;
+        if ( is_file($full_path_file_csv) ){
+            $handle = fopen ($full_path_file_csv, "r"); 
+            if($handle){
+                while( ($data = fgetcsv($handle, 1000, ';')) !==false && $row < 1 ){
+                    $data = self::encodWinToUtf8($data);
+                    $td_0 = $data[0];//fisrst substring in array
+                    if($row == 0){
+                       //смотрим первую строку файла (вид  "Прайс на дату: 10.02.19;;;;;;")
+                       //найдем строку даты после ":"
+                       if($pos_begin = strpos($td_0,":")){
+                           fclose($handle);
+                           return substr($td_0 ,$pos_begin + 2 );
+                       }
+                    }
+                    $row++;
+                    fclose($handle);
+                }
+            }
+        } 
+        return "!no_date";
     }
 
     /** 
@@ -98,13 +127,13 @@ class Text_csv_file
                     }
                     if($row ==1 ){
                         //заполнение названия и даты типа      Прайс на дату: 12.01.19	
-                        $thead .= "<tr><td>$row</td>$td_all</tr>";
+                        $thead .= "<tr><th>$row</th>$td_all</tr>";
                         $table = str_replace("<<>>", $thead, $table);
 
                     }else{
                         //добавка наименования колонок типа 
                         //Наименование	ед.изм	расф.	Цена с НДС за ед.	Цена с НДС за упаковку	Останок по складу (ед)	Останок по складу (расф.)
-                        $table = str_replace("</thead>","<td>$row</td>".$td_all.'</thead>', $table);
+                        $table = str_replace("</thead>","<th>$row</th>".$td_all.'</thead>', $table);
                     }
                 } else {
                     if ($row == 284) {
