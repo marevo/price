@@ -88,7 +88,11 @@ $(document).ready(function(){
             }
         });
     }
-    
+    function show_all(){
+        $.each($('#mytable tbody tr'),function(){
+            $(this).show();
+        });
+    }
     $("#search").on('keyup',all_search);
     $(".checkbox_group").on('change',all_search);
  
@@ -96,6 +100,7 @@ $(document).ready(function(){
     function all_search(){
         var text_in_input_toLowerCase = what_text_in_input().toLowerCase()
         ;
+        
         if(isBrandChecked()){
             if(what_text_in_input()){
                 show_tr_with_brand_and_textInput(text_in_input_toLowerCase);
@@ -105,6 +110,8 @@ $(document).ready(function(){
         }else{
             if(what_text_in_input()){
                 show_tr_if_textInput_exist_in_td_2(text_in_input_toLowerCase);
+            }else{
+                show_all();
             }
         }
 
