@@ -56,6 +56,7 @@ let table_vue = new Vue({
             });
         },
         searching_products_on_name(){
+            this.search_in_table_search='';
             this.products_search.length=0;
             for(let i=0; i < this.products.length; i++){
                 if(this.search_name_product !=='' 
