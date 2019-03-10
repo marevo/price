@@ -167,7 +167,7 @@ let table_vue = new Vue({
     },
     computed:{
         date_price_value(){
-            return 'прайс от'+ this.date_price;
+            return 'прайс'+ this.date_price;
         },
         sum(){
             console.log('1');

@@ -32,12 +32,12 @@ use App\Model\Text_csv_file;
         <div class="row" >
             <!-- <div > -->
             <!-- <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"> -->
-            <div class="col-lg-4 col-md-5  col-sm-6 col-xs-8">
+            <div class="col-lg-4 col-md-5  col-sm-6 col-xs-12">
                 <div class="input-group" >
                     <span class="input-group-btn">
                        <a href='./upload_file.php' target='_blank' class="btn btn-success" type="button">выбрать прайс</a>
                     </span>
-                    <input type="text" v-model="date_price_value" class='form-control text-center'
+                    <input type="text" v-model="date_price_value" class='form-control text-left'
                         :style="style_input_disabled"  placeholder="date_price" disabled
                     >
                     <!-- <span class class="input-group text-center">{{date_price_value}}</span> -->
