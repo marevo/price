@@ -25,7 +25,7 @@ class Text_csv_file
                     $this->pathToFile = "uploadFile/$this->nameFile";
             }catch(Exception $exception){
                     $this->error_message .= $exception . " $this->nameFile";
-                     echo $exception->getMessage()." $error_mes_noFile ";
+                     echo $exception->getMessage()." ".self::$error_mes_noFile ;
             }
         }else{
             var_dump ("! ".self::$error_mes_noNameFileInConstruct);
