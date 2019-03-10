@@ -39,14 +39,22 @@ use App\Model\Text_csv_file;
                     </span>
                     <input type="text" v-model="date_price_value" class='form-control text-center'
                         :style="style_input_disabled"  placeholder="date_price" disabled
-                       class="form-control">
-                    <span class="input-group-btn">
+                    >
+                    <!-- <span class class="input-group text-center">{{date_price_value}}</span> -->
+                    <span class="input-group-btn"
+                          v-show="!products_length"
+                    >
                        <button class="btn btn-success" v-on:click.stop.prevent.once="create_all_products">товары в js-obj</button>
                     </span>
+                    <span type="text" v-show="products_length"
+                             class='input-group-addon text-center'
+                             :style="{'background-color':'#c4c8ca73'}"  
+                    >товаров:{{products_length}}</span>
                 </div>
             </div> <!-- /col-lg-6 -->
             <div class="col-lg-6 col-lg-offset-1 col-md-6  col-sm-8 col-xs-12">
                 <div class="input-group">
+                <!-- <input type="text" name='name_product' :style="{'max-width':'130px', 'min-width':'120px'}" -->
                     <input type="text" name='name_product'
                                        v-model="search_name_product"
                                        class="form-control" 
@@ -76,6 +84,7 @@ use App\Model\Text_csv_file;
                         >
                             <span class="glyphicon glyphicon-remove"></span></button>
                     </span>
+
                     <input type='number' min='0' max='20'class='form-control' placeholder="скидка" name='discount' size="3"
                                         v-model="disc_persent"
                                         >
@@ -85,21 +94,12 @@ use App\Model\Text_csv_file;
                         >
                         <span class="glyphicon glyphicon-remove"></span></button>
                     </span>
+
                 <!-- /.input-group-->
                 </div>
             </div><!-- /col -->    
         </div><!--end row -->   
-    <div class="row">    
-        <div> all:{{products_length}} ~ {{size_all_obj}} find:products_search_lenght}} ~ {{"sizeObj_finding"}}</div>
-    </div>
-    <div class="row" id="columns">
-        <!--
-        <div class="col-md-2">
-        <input type="checkbox" name='brandSel' id='lk' value='lisovaKazka' class='checkbox'
-                     v-model="selected_brands"><label class='toggle-container' for='lk'>ЛК</label>
-        <span>selected:{{selected_brands}}</span>
-        </div>
-        -->
+    <div class="row" id="columns" :style="{'margin-top':'6px','margin-bottom':'3px'}">
         <div class="col-md-10">
             <template v-for="brand in brands">
                <input type='checkbox' class='checkbox' 

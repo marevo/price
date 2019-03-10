@@ -24,7 +24,7 @@ let table_vue = new Vue({
         style_input_disabled:{
             backgroundColor:'#c4c8ca73',
             // width:'120px',
-            minWidth:'145px',
+            // minWidth:'145px',
             // maxWidth:'150px',
             // paddingRight:0,
             // paddingLeft:0
@@ -227,6 +227,9 @@ let table_vue = new Vue({
             // discount% X 
             // x=value*discount/100
         },
+    },
+    created:function(){
+        this.create_all_products();
     }
 
 });
