@@ -31,28 +31,44 @@ use App\Model\Text_csv_file;
 <div id="container_main" class="container-fluid" >
         <div class="row" >
             <!-- <div > -->
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <!-- <form role='form' class= 'form-inline'> -->
-                <div class="input-group">
-                    <input type="text" v-model="date_price_value" size="10" placeholder="date_price"  class="form-control"
-                    >
+            <!-- <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"> -->
+            <div class="col-lg-4 col-md-5  col-sm-6 col-xs-8">
+                <div class="input-group" >
                     <span class="input-group-btn">
                        <a href='./upload_file.php' target='_blank' class="btn btn-success" type="button">выбрать прайс</a>
-                    </span>    
-                    <input type="text" name='name_product' size="7"
+                    </span>
+                    <input type="text" v-model="date_price_value" class='form-control text-center'
+                        :style="style_input_disabled"  placeholder="date_price" disabled
+                       class="form-control">
+                    <span class="input-group-btn">
+                       <button class="btn btn-success" v-on:click.stop.prevent.once="create_all_products">товары в js-obj</button>
+                    </span>
+                </div>
+            </div> <!-- /col-lg-6 -->
+            <div class="col-lg-6 col-lg-offset-1 col-md-6  col-sm-8 col-xs-12">
+                <div class="input-group">
+                    <input type="text" name='name_product'
                                        v-model="search_name_product"
-                                       v-on:input = "searching_products_on_name"
-                     class="form-control"  placeholder="название">
+                                       class="form-control" 
+                                       @input="searching_products_on_name"
+                                       placeholder="название"
+                    >
+                    <span class="input-group-btn">
+                         <button class="btn btn-default" type="button"
+                             @click="searching_products_on_name">
+                            <span class="glyphicon glyphicon-search"></span>
+                        </button>
+                    </span>
                     <span class="input-group-btn">
                         <button class="btn btn-default" type="button"
-                             @click="search_name_product=''"
-                        ><span class="glyphicon glyphicon-remove"></span>
+                             @click="search_name_product=''"><span class="glyphicon glyphicon-remove"></span>
                        </button>
                     </span>
-                    <input type='number'min='0.2' max='1.3' step='0.1' name="weight" size="3"
+                    <input type='number'min='0.2' max='1.3' step='0.1' name="weight"
                                        v-model="search_weight_product"
                                        v-on:change = "searching_products_on_weight"
-                                       v-bind:class ="{lightingRed:isNumber}" 
+                                       v-bind:class ="{lightingRed:isNumber}"
+                                        
                      class="form-control"  placeholder="вес">
                     <span class="input-group-btn">
                         <button class="btn btn-default" type="button"
@@ -61,21 +77,21 @@ use App\Model\Text_csv_file;
                             <span class="glyphicon glyphicon-remove"></span></button>
                     </span>
                     <input type='number' min='0' max='20'class='form-control' placeholder="скидка" name='discount' size="3"
-                                        v-model="disc_persent">
+                                        v-model="disc_persent"
+                                        >
                     <span class="input-group-btn">
                         <button class="btn btn-default" type="button"
                             @click="disc_persent=''"
                         >
                         <span class="glyphicon glyphicon-remove"></span></button>
                     </span>
+                <!-- /.input-group-->
                 </div>
-                <!-- </form> -->
-            </div><!-- end col-12 -->    
-    
-            <button class="btn btn-success" v-on:click.stop.prevent.once="create_all_products">товары в js-obj</button>
-            <button class="btn btn-success" v-on:click.stop.prevent="searching_products_on_name">найти товар </button>
-        </div><!--end row -->       
-    <div> all:{{products_length}} ~ {{size_all_obj}} find:products_search_lenght}} ~ {{"sizeObj_finding"}}</div>
+            </div><!-- /col -->    
+        </div><!--end row -->   
+    <div class="row">    
+        <div> all:{{products_length}} ~ {{size_all_obj}} find:products_search_lenght}} ~ {{"sizeObj_finding"}}</div>
+    </div>
     <div class="row" id="columns">
         <!--
         <div class="col-md-2">

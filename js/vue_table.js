@@ -12,7 +12,7 @@ let table_vue = new Vue({
         input:'',
         sortNameDown:true,//сортировка по названию
         sortWeightDown:true,//сортировка по массе в ящике
-        disc_persent:0,
+        disc_persent:'',
         search_in_table:'',
         search_in_table_search:'',
         date_price:date_price,
@@ -21,7 +21,14 @@ let table_vue = new Vue({
             backgroundColor:'#5f8eb6',
             width:'40px',
         },
-
+        style_input_disabled:{
+            backgroundColor:'#c4c8ca73',
+            // width:'120px',
+            minWidth:'145px',
+            // maxWidth:'150px',
+            // paddingRight:0,
+            // paddingLeft:0
+        },
         //brands что будут отображаться на странице index.php
         brands:[
             {id:'sweet_company',name:'Світ'},
@@ -34,7 +41,6 @@ let table_vue = new Vue({
             {id:'R&V',name:'R&V'},
             {id:'lasoshi',name:'Ласощі'},
             {id:'shokoladno',name:'Шоколадно'},
-    
         ],
         
     },
@@ -56,11 +62,12 @@ let table_vue = new Vue({
             });
         },
         searching_products_on_name(){
+            this.search_weight_product_number();
             this.search_in_table_search='';
             this.products_search.length=0;
             for(let i=0; i < this.products.length; i++){
                 if(this.search_name_product !=='' 
-                   &&  -1 !==  this.products[i].name.toLowerCase().indexOf(this.search_name_product.toLowerCase()) ){
+                    &&  -1 !==  this.products[i].name.toLowerCase().indexOf(this.search_name_product.toLowerCase()) ){
                     this.products_search.push(this.products[i]);
                 }
             }
@@ -77,7 +84,6 @@ let table_vue = new Vue({
                     }
                 }
             }
-            
         },
         searching_products_on_selected_brands(){
             this.products_search.length = 0;
@@ -87,7 +93,6 @@ let table_vue = new Vue({
                         this.products_search.push(this.products[i]);
                     }
                 }
-                
             }
         },
         search_weight_product_number(){
@@ -222,7 +227,6 @@ let table_vue = new Vue({
             // discount% X 
             // x=value*discount/100
         },
-
     }
 
 });
